@@ -1,11 +1,14 @@
 //Clase que me permite hacer mi webserver y llevarlo a un localhost, lo hago como clase para que no quede tan 
 //saturado de información mi archivo de ejecución app.js
 
-//Importo paquete express
+//Importo paquete express para manejar el despliegue, digamos que sustituye el front
 const express = require('express')
 
 //Paquete cors que sirve para proteger nuestro servidor y restringir el acceso de sitios web
-const cors = require('cors')
+const cors = require('cors');
+
+//Función que importo para hacer la conexión con mongo
+const { dbConnection } = require('../DB/config');
 
 //Creación de clase que voy a exportar a app.js
 class Server {
@@ -16,11 +19,14 @@ class Server {
         //definicion de variable app
         this.app = express();
 
-        //definición de variable port
+        //definición de variable port, el puerto que voy a utilizar
         this.port = process.env.PORT;
 
-        //Ruta para los usuarios
+        //Ruta para los usuarios, donde voy hacer mis interacciones get, post, put, delete
         this.usuariosPath = '/api/usuarios'
+
+        //Conectar a base de datos
+        this.conectarDB();
 
         //Middlewares: Servidor del contenido de la carpeta publica, restricción de sitios web
         this.middlewares();
@@ -29,15 +35,21 @@ class Server {
         this.routes();
     }
 
+    async conectarDB() {
+
+        await dbConnection();
+    }
+
+    //Función que se ejecuta antes de llamar ya sea un controlador o seguir con la ejecución de mis peticiones
     middlewares() {
 
-        //Cors
+        // Cors - Permite proteger nuestro servidor 
         this.app.use( cors() );
 
         //lectura y parseo del body (postman)
         this.app.use( express.json() );
 
-        //Directorio publico
+        //Directorio publico, para hacer uso del html que se ubica en la carpeta public (encargado del front)
         this.app.use( express.static('public') );
     }
 
