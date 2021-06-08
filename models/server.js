@@ -23,7 +23,10 @@ class Server {
         this.port = process.env.PORT;
 
         //Ruta para los usuarios, donde voy hacer mis interacciones get, post, put, delete
-        this.usuariosPath = '/api/usuarios'
+        this.usuariosPath = '/api/usuarios';
+
+        //Ruta para hacer la autenticación 
+        this.authPath = '/api/auth';
 
         //Conectar a base de datos
         this.conectarDB();
@@ -55,9 +58,14 @@ class Server {
 
     routes() {
 
+        //funcion para llamar las rutas puestas en ../routes/auth, con la dirección con la que yo quiero que se
+        //encuentre this.authPath. Esto con el fin de hacer la autenticación.
+        this.app.use(this.authPath, require('../routes/auth'));
+
         //funcion para llamar las rutas puestas en ../routes/usuarios, con la dirección con la que yo quiero que se
         //encuentre this.usuariosPath
-        this.app.use(this.usuariosPath, require('../routes/usuarios'))
+        this.app.use(this.usuariosPath, require('../routes/usuarios'));
+
           
     }
 

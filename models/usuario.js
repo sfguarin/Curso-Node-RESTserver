@@ -59,7 +59,8 @@ const UsuarioSchema = Schema({
 //necesito que se conserven, mientras que la función flecha mantiene el this fuera de la misma
 UsuarioSchema.methods.toJSON =  function() {
     //Aca separo el __v y el password del resto que lo llame (usuario) y solo retorno el usuario
-    const {__v, password, ...usuario} = this.toObject();
+    const {__v, password, _id,...usuario} = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 

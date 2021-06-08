@@ -178,7 +178,7 @@ const usuariosPatch =  (req, res) => {
 const usuariosDelete = async(req = request, res = response) => {
 
     //Captura el id que viene de los params 
-    const {id} = req.params;
+    const { id } = req.params;
 
     //Este metodo me borra TODO lo que tenga que ver con este usuario, lo cual no es muy recomendado
     //porque si el dia de mañana necesito alguna información que este usuario haya hecho en el pasado o
@@ -188,14 +188,18 @@ const usuariosDelete = async(req = request, res = response) => {
     //Este metodo solo me cambia el estado de mi usuario a false, lo cual es muy recomendado ya que igual se sigue 
     //conservando en la base de datos toda la información relacionada a este usuario y si a futuro se necesita
     //hacer una consulta aun se puede consultar
-    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false} );
+    const usuario = await Usuario.findByIdAndUpdate( id, {estado: false} );
+
+
+    //Recibir usuario autenticado - fines educativos
+    //const usuarioAutenticado = req.usuario;
 
     res.json({
 
     msg: 'El usuario que se elimino fue el siguiente',
     usuario
 
-    })
+    });
 }
 
 //Exportar las constantes creadas de las peticiones HTTP para utilizarlas en usuarios.js

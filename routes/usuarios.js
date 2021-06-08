@@ -16,13 +16,15 @@ const { usuariosGet,
 //base de datos
 const { esRoleValido, emailExiste, idExiste } = require('../helpers/db-validators');
 
-//ejecución de los errores que quiero disparar segun la validación de datos 
+//ejecución de los errores que quiero disparar segun la validación de datos, middlewares
 const { validarCampos } = require('../middlewares/validar-campos');
+const { validarJWT } = require('../middlewares/validar-jwt');
+const { esAdminRole, tieneRol } = require('../middlewares/validar-roles');
 
 
 //establecer mi constante con la función que extraje y va ser como mi this.app. Asi pues pongo todas
 // las peticiones que voy a utilizar con router Ejemplo router.get, router.post, etc. Al Router() de express
-//automaticamente se lemodifica las rutas y las exporto
+//automaticamente se le modifica las rutas y las exporto
 const router = Router();
 
         //GET: Solicita una representación de un recurso en especifico. Se utiliza para recuperar datos
@@ -92,6 +94,12 @@ const router = Router();
         //cualquier numero. Capturo el id como parametro. En este caso el usuario lo tiene que poner para el 
         //usuario que desea eliminar 
         router.delete('/:id', [
+
+                //Metodo para recibir y validar mi JWT del header antes de eliminar un usuario
+                validarJWT,
+                //Verificar que el usuario que desea realizar la acción de eliminar tenga uno de los roles
+                //permitidos para realizar la acción
+                tieneRol('ADMIN_ROLE', 'VENTAS_ROLE'),
                  //Verifica si el id ingresado corresponde a un formato de id de mongo
                  check('id', 'No es un ID válido').isMongoId(),
                  //Verifica si el id ingresado corresponde a un id de algun usuario registrado, existe en la BD
