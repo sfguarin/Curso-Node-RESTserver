@@ -37,7 +37,7 @@ const tieneRol = ( ...roles ) => {
     return (req=request, res = response, next ) => {
         
         //Se tiene que poner despues de que el token ya se haya validado y se haya modificado la request,
-        //porque llamo al usuario de la request y si no existe surge un error
+        //porque si llamo al usuario de la request y si no existe surge un error
         if(!req.usuario){
             return res.status(500).json({
                 msg: 'Se quiere verificar el role sin validar el token primero'

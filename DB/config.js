@@ -10,7 +10,7 @@ const dbConnection = async() => {
         
         //El await que tiene la función para hacer la conexión usando la variable de entorno que tiene 
         //la URL de la conexión con mongoAtlas
-        await mongoose.connect(process.env.MONGODB_ATLAS, {
+        await mongoose.connect(process.env.MONGODB_ATLAS, { 
 
             //Parametros que toca poner con esos valores para permitir la conexión 
             useNewUrlParser: true,

@@ -115,7 +115,10 @@ const usuariosPost =  async (req = request, res = response) => {
     //en la terminal que faltan unos argumentos obligatorios, en postman se queda como pensando y no se guarda
     //el usuario en mongo. Por esta razón se debe cumplir con todo lo propuesto en el modelo, tambien ocurre error
     //cuando hay problemas de duplicidad, es decir, que se repite el correo.
+
     await usuario.save();
+
+    //el id del usuario se genera automaticamente en mongoDB
 
 
     res.json({

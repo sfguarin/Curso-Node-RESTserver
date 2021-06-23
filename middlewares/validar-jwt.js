@@ -29,6 +29,7 @@ const validarJWT = async (req=request, res=response, next) => {
         //Asi que en postman, cuando meto el header x-token tiene que ser un token valido como los que genero 
         //en login, de lo contrario arroja de una vez un error y no sigue con next()
         //Ademas de hacer la verificacion me arroja como resultado {uid, iat, exp}={id usuario, fecha que se creo, fecha expiración}
+        //Aca extraigo el uid si el token es valido
         const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
 
         //leer el usuario que corresponde al uid de la base de datos
