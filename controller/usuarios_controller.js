@@ -144,7 +144,7 @@ const usuariosPut =  async (req = request, res) => {
     //si es el mismo no dejaria actualizar la data. Esto como tal es lo que entra en el body
     //el unico id que me sirve es el que se manda en los params no en el body por eso lo extraigo tambien en caso de
     //venir
-    const {_id, password, google, correo, ...resto} = req.body;
+    const {_id, password, google, correo, estado, ...resto} = req.body;
 
 
     //actualización de contraseña

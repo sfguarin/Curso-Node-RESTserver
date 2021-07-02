@@ -23,6 +23,8 @@ const login =  async (req = request, res = response) => {
 
         //Verificar si el usuario existe con el email suministrado, para buscar siempre se utilizan corchetes
         const usuario = await Usuario.findOne({correo});
+
+        // Si el usuario no existe haga lo siguiente
         if (!usuario){
 
             return res.status(400).json({

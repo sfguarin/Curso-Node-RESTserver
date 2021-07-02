@@ -49,7 +49,7 @@ const validarJWT = async (req=request, res=response, next) => {
             })
         }
 
-        //darle el valor de usuario a la request que lleda al controlador
+        //darle el valor de usuario a la request que llega al controlador
         req.usuario = usuario;
 
         next();

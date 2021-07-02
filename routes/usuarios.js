@@ -8,7 +8,7 @@ const { check } = require('express-validator');
 //Importación de funciones del controlador 
 const { usuariosGet, 
         usuariosPut, 
-        usuariosPost, 
+        usuariosPost,  
         usuariosDelete, 
         usuariosPatch } = require('../controller/usuarios_controller');
 
@@ -105,6 +105,7 @@ const router = Router();
                  //Verifica si el id ingresado corresponde a un id de algun usuario registrado, existe en la BD
                  check('id').custom(idExiste),
                  validarCampos
+                 
         ],usuariosDelete)
 
         //PATCH: Para aplicar modificaciones parciales para un recurso 

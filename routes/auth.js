@@ -4,6 +4,8 @@ const { Router } = require('express');
 
 //Importación del metodo check para hacer las validaciones del correo
 const { check } = require('express-validator');
+
+//Importaciòn de controladores
 const { login, googleSignin } = require('../controller/auth_controller');
 
 //ejecución de los errores que quiero disparar segun la validación de datos 

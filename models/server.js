@@ -22,11 +22,20 @@ class Server {
         //definición de variable port, el puerto que voy a utilizar
         this.port = process.env.PORT;
 
-        //Ruta para los usuarios, donde voy hacer mis interacciones get, post, put, delete
-        this.usuariosPath = '/api/usuarios';
+        //Rutas para que los usuarios puedan acceder a mis interacciones get, post, put, delete
+        //Esto se usa para cuando existen muchas rutas y se vea mas ordenado
+        this.paths = {
+            
+            auth:       '/api/auth',
+            buscar:     '/api/buscar',
+            categorias: '/api/categorias',
+            productos:  '/api/productos',
+            usuarios:   '/api/usuarios'
+        }
 
-        //Ruta para hacer la autenticación 
-        this.authPath = '/api/auth';
+        //Ruta para los usuarios, donde voy hacer mis interacciones get, post, put, delete
+        //Esto se deja para fines didacticos para cuando se tienen pocas direcciones url
+        //this.usuariosPath = '/api/usuarios';
 
         //Conectar a base de datos
         this.conectarDB();
@@ -58,13 +67,25 @@ class Server {
 
     routes() {
 
-        //funcion para llamar las rutas puestas en ../routes/auth, con la dirección con la que yo quiero que se
-        //encuentre this.authPath. Esto con el fin de hacer la autenticación.
-        this.app.use(this.authPath, require('../routes/auth'));
+        //funcion para llamar los endpoints puestos en ../routes/auth, con la dirección con la que yo quiero que 
+        //se encuentren. this.app.use(url, ubicación donde se encuentra los endpoints. 
+        //Esto con el fin de hacer la autenticación del usuario.
+        this.app.use(this.paths.auth, require('../routes/auth'));
 
-        //funcion para llamar las rutas puestas en ../routes/usuarios, con la dirección con la que yo quiero que se
-        //encuentre this.usuariosPath
-        this.app.use(this.usuariosPath, require('../routes/usuarios'));
+        //funcion para llamar los endpoints puestos en ../routes/buscar con el url /api/buscar
+        this.app.use(this.paths.buscar, require('../routes/buscar'));
+
+        //funcion para llamar los endpoints puestos en ../routes/categorias con el url /api/categorias
+        this.app.use(this.paths.categorias, require('../routes/categorias'));
+
+        //funcion para llamar los endpoints puestos en ../routes/productos con el url /api/productos
+        this.app.use(this.paths.productos, require('../routes/productos'));
+
+        
+        //funcion para llamar los endpoints puestos en ../routes/usuarios, con la dirección con la que yo quiero que 
+        //se encuentren. this.app.use(url, ubicación donde se encuentra los endpoints. 
+        //Esto con el fin de hacer interacciones con los usuarios
+        this.app.use(this.paths.usuarios, require('../routes/usuarios'));
 
           
     }
