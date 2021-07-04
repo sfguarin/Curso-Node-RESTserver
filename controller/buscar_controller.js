@@ -204,3 +204,4 @@ const buscar = ( req = request, res = response ) => {
 module.exports = {
     buscar
 }
+
